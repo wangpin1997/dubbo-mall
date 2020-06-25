@@ -18,6 +18,7 @@ import java.util.List;
 
 /**
  * 购物车管理Service实现类
+ * CartItemClient 对其他服务暴露调用
  *
  * @author wangpin
  */
