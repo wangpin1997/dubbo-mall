@@ -1,0 +1,9 @@
+server:
+  port: 8884
+dubbo:
+  application:
+    name: mall-order
+  registry:
+    address: zookeeper://zk.wpin.config:80
+  monitor:
+    protocol: registry
