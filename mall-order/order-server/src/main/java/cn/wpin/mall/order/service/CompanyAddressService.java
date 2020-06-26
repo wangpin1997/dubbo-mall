@@ -1,6 +1,7 @@
 package cn.wpin.mall.order.service;
 
 
+import cn.wpin.mall.client.order.CompanyAddressClient;
 import cn.wpin.mall.order.entity.CompanyAddress;
 import cn.wpin.mall.order.example.CompanyAddressExample;
 import cn.wpin.mall.order.mapper.CompanyAddressMapper;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 @Service
 @Component
-public class CompanyAddressService {
+public class CompanyAddressService implements CompanyAddressClient {
 
     @Autowired
     private CompanyAddressMapper companyAddressMapper;
@@ -26,6 +27,7 @@ public class CompanyAddressService {
     /**
      * 获取全部收货地址
      */
+    @Override
     public List<CompanyAddress> list() {
         return companyAddressMapper.selectByExample(new CompanyAddressExample());
     }

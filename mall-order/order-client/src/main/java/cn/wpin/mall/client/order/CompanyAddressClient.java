@@ -16,6 +16,5 @@ public interface CompanyAddressClient {
      *
      * @return
      */
-    @RequestMapping(value = "companyAddress/list", method = RequestMethod.GET)
     List<CompanyAddress> list();
 }
