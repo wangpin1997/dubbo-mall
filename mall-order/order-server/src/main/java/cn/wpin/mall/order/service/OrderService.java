@@ -1,5 +1,6 @@
 package cn.wpin.mall.order.service;
 
+import cn.wpin.mall.client.order.OrderClient;
 import cn.wpin.mall.order.dao.OrderDao;
 import cn.wpin.mall.order.dao.OrderOperateHistoryDao;
 import cn.wpin.mall.order.dto.*;
@@ -24,7 +25,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @Component
-public class OrderService {
+public class OrderService implements OrderClient {
 
     @Autowired
     private OrderMapper orderMapper;
@@ -36,12 +37,14 @@ public class OrderService {
     private OrderOperateHistoryMapper orderOperateHistoryMapper;
 
 
+    @Override
     public List<Order> list(OrderQueryParam queryParam, Integer pageSize, Integer pageNum) {
         PageHelper.startPage(pageNum, pageSize);
         return orderDao.getList(queryParam);
     }
 
 
+    @Override
     public int delivery(List<OrderDeliveryParam> deliveryParamList) {
         //批量发货
         int count = orderDao.delivery(deliveryParamList);
@@ -61,6 +64,7 @@ public class OrderService {
     }
 
 
+    @Override
     public int close(List<Long> ids, String note) {
         Order record = new Order();
         record.setStatus(4);
@@ -80,6 +84,7 @@ public class OrderService {
         return count;
     }
 
+    @Override
     public int delete(List<Long> ids) {
         Order record = new Order();
         record.setDeleteStatus(1);
@@ -88,11 +93,13 @@ public class OrderService {
         return orderMapper.updateByExampleSelective(record, example);
     }
 
+    @Override
     public OrderDetail detail(Long id) {
         return orderDao.getDetail(id);
     }
 
 
+    @Override
     public int updateReceiverInfo(ReceiverInfoParam receiverInfoParam) {
         Order order = new Order();
         order.setId(receiverInfoParam.getOrderId());
@@ -107,7 +114,8 @@ public class OrderService {
     }
 
 
-    public int updateMoneyInfo(MoneyInfoParam moneyInfoParam) {
+    @Override
+    public int updateReceiverInfo(MoneyInfoParam moneyInfoParam) {
         Order order = new Order();
         order.setId(moneyInfoParam.getOrderId());
         order.setFreightAmount(moneyInfoParam.getFreightAmount());
@@ -120,6 +128,7 @@ public class OrderService {
      * 修改订单备注
      */
 
+    @Override
     public int updateNote(Long id, String note, Integer status) {
         Order order = new Order();
         order.setId(id);

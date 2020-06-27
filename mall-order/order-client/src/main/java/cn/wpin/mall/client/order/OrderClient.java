@@ -1,9 +1,7 @@
 package cn.wpin.mall.client.order;
 
-import cn.wpin.mall.common.entity.CommonPage;
 import cn.wpin.mall.order.dto.*;
 import cn.wpin.mall.order.entity.Order;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,10 +18,9 @@ public interface OrderClient {
      * @param pageNum
      * @return
      */
-    @RequestMapping(value = "order/list", method = RequestMethod.POST)
-    CommonPage<Order> list(@RequestBody OrderQueryParam queryParam,
-                           @RequestParam(value = "pageSize") Integer pageSize,
-                           @RequestParam(value = "pageNum") Integer pageNum);
+    List<Order> list(OrderQueryParam queryParam,
+                     Integer pageSize,
+                     Integer pageNum);
 
     /**
      * 批量发货
@@ -31,8 +28,7 @@ public interface OrderClient {
      * @param deliveryParamList
      * @return
      */
-    @RequestMapping(value = "order/update/delivery", method = RequestMethod.POST)
-    int delivery(@RequestBody List<OrderDeliveryParam> deliveryParamList);
+    int delivery(List<OrderDeliveryParam> deliveryParamList);
 
     /**
      * 批量关闭订单
@@ -41,8 +37,7 @@ public interface OrderClient {
      * @param note
      * @return
      */
-    @RequestMapping(value = "order/update/close", method = RequestMethod.POST)
-    int close(@RequestParam("ids") List<Long> ids, @RequestParam("note") String note);
+    int close(List<Long> ids, String note);
 
     /**
      * 批量删除订单
@@ -50,8 +45,7 @@ public interface OrderClient {
      * @param ids
      * @return
      */
-    @RequestMapping(value = "order/delete", method = RequestMethod.POST)
-    int delete(@RequestParam("ids") List<Long> ids);
+    int delete(List<Long> ids);
 
     /**
      * 获取订单详情:订单信息、商品信息、操作记录
@@ -59,8 +53,7 @@ public interface OrderClient {
      * @param id
      * @return
      */
-    @RequestMapping(value = "order/{id}", method = RequestMethod.GET)
-    OrderDetail detail(@PathVariable Long id);
+    OrderDetail detail(Long id);
 
     /**
      * 修改收货人信息
@@ -68,8 +61,7 @@ public interface OrderClient {
      * @param receiverInfoParam
      * @return
      */
-    @RequestMapping(value = "order/update/receiverInfo", method = RequestMethod.POST)
-    int updateReceiverInfo(@RequestBody ReceiverInfoParam receiverInfoParam);
+    int updateReceiverInfo(ReceiverInfoParam receiverInfoParam);
 
     /**
      * 修改订单费用信息
@@ -77,8 +69,7 @@ public interface OrderClient {
      * @param moneyInfoParam
      * @return
      */
-    @RequestMapping(value = "order/update/moneyInfo", method = RequestMethod.POST)
-    int updateReceiverInfo(@RequestBody MoneyInfoParam moneyInfoParam);
+    int updateReceiverInfo(MoneyInfoParam moneyInfoParam);
 
     /**
      * 备注订单
@@ -88,8 +79,7 @@ public interface OrderClient {
      * @param status
      * @return
      */
-    @RequestMapping(value = "order/update/note", method = RequestMethod.POST)
-    int updateNote(@RequestParam("id") Long id,
-                   @RequestParam("note") String note,
-                   @RequestParam("status") Integer status);
+    int updateNote(Long id,
+                   String note,
+                   Integer status);
 }

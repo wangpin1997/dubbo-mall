@@ -66,7 +66,7 @@ public class OrderController {
     @ApiOperation("修改订单费用信息")
     @RequestMapping(value = "/update/moneyInfo", method = RequestMethod.POST)
     public int updateReceiverInfo(@RequestBody MoneyInfoParam moneyInfoParam) {
-        return orderService.updateMoneyInfo(moneyInfoParam);
+        return orderService.updateReceiverInfo(moneyInfoParam);
     }
 
     @ApiOperation("备注订单")
