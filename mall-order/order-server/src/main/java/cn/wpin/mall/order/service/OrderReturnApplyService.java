@@ -1,6 +1,7 @@
 package cn.wpin.mall.order.service;
 
 
+import cn.wpin.mall.client.order.OrderReturnApplyClient;
 import cn.wpin.mall.order.dao.OrderReturnApplyDao;
 import cn.wpin.mall.order.dto.OrderReturnApplyResult;
 import cn.wpin.mall.order.dto.ReturnApplyQueryParam;
@@ -23,7 +24,7 @@ import java.util.List;
  */
 @Service
 @Component
-public class OrderReturnApplyService {
+public class OrderReturnApplyService implements OrderReturnApplyClient {
 
     @Autowired
     private OrderReturnApplyDao returnApplyDao;
@@ -34,6 +35,7 @@ public class OrderReturnApplyService {
     /**
      * 分页查询申请
      */
+    @Override
     public List<OrderReturnApply> list(ReturnApplyQueryParam queryParam, Integer pageSize, Integer pageNum) {
         PageHelper.startPage(pageNum, pageSize);
         return returnApplyDao.getList(queryParam);
@@ -42,6 +44,7 @@ public class OrderReturnApplyService {
     /**
      * 批量删除申请
      */
+    @Override
     public int delete(List<Long> ids) {
         OrderReturnApplyExample example = new OrderReturnApplyExample();
         example.createCriteria().andIdIn(ids).andStatusEqualTo(3);
@@ -51,6 +54,7 @@ public class OrderReturnApplyService {
     /**
      * 修改申请状态
      */
+    @Override
     public int updateStatus(Long id, UpdateStatusParam statusParam) {
         Integer status = statusParam.getStatus();
         OrderReturnApply returnApply = new OrderReturnApply();
@@ -86,6 +90,7 @@ public class OrderReturnApplyService {
     /**
      * 获取指定申请详情
      */
+    @Override
     public OrderReturnApplyResult getItem(Long id) {
         return returnApplyDao.getDetail(id);
     }
