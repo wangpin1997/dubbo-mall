@@ -1,8 +1,6 @@
 package cn.wpin.mall.client.order;
 
-import cn.wpin.mall.common.entity.CommonPage;
 import cn.wpin.mall.order.entity.OrderReturnReason;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,8 +15,7 @@ public interface OrderReturnReasonClient {
      * @param returnReason
      * @return
      */
-    @RequestMapping(value = "returnReason/create", method = RequestMethod.POST)
-    int create(@RequestBody OrderReturnReason returnReason);
+    int create(OrderReturnReason returnReason);
 
 
     /**
@@ -28,8 +25,7 @@ public interface OrderReturnReasonClient {
      * @param returnReason
      * @return
      */
-    @RequestMapping(value = "returnReason/update/{id}", method = RequestMethod.POST)
-    int update(@PathVariable("id") Long id, @RequestBody OrderReturnReason returnReason);
+    int update(Long id, OrderReturnReason returnReason);
 
     /**
      * 批量删除退货原因
@@ -37,8 +33,7 @@ public interface OrderReturnReasonClient {
      * @param ids
      * @return
      */
-    @RequestMapping(value = "returnReason/delete", method = RequestMethod.POST)
-    int delete(@RequestParam("ids") List<Long> ids);
+    int delete(List<Long> ids);
 
     /**
      * 分页查询全部退货原因
@@ -47,9 +42,8 @@ public interface OrderReturnReasonClient {
      * @param pageNum
      * @return
      */
-    @RequestMapping(value = "returnReason/list", method = RequestMethod.GET)
-    CommonPage<OrderReturnReason> list(@RequestParam(value = "pageSize") Integer pageSize,
-                                       @RequestParam(value = "pageNum") Integer pageNum);
+    List<OrderReturnReason> list(Integer pageSize,
+                                 Integer pageNum);
 
     /**
      * 获取单个退货原因详情信息
@@ -57,8 +51,7 @@ public interface OrderReturnReasonClient {
      * @param id
      * @return
      */
-    @RequestMapping(value = "returnReason/{id}", method = RequestMethod.GET)
-    OrderReturnReason getItem(@PathVariable("id") Long id);
+    OrderReturnReason getItem(Long id);
 
     /**
      * 修改退货原因启用状态
@@ -67,7 +60,6 @@ public interface OrderReturnReasonClient {
      * @param ids
      * @return
      */
-    @RequestMapping(value = "returnReason/update/status", method = RequestMethod.POST)
-    int updateStatus(@RequestParam(value = "status") Integer status,
-                     @RequestParam("ids") List<Long> ids);
+    int updateStatus(Integer status,
+                     List<Long> ids);
 }

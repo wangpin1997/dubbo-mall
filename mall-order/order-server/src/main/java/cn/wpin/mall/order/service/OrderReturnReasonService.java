@@ -1,6 +1,7 @@
 package cn.wpin.mall.order.service;
 
 
+import cn.wpin.mall.client.order.OrderReturnReasonClient;
 import cn.wpin.mall.order.entity.OrderReturnReason;
 import cn.wpin.mall.order.example.OrderReturnReasonExample;
 import cn.wpin.mall.order.mapper.OrderReturnReasonMapper;
@@ -19,7 +20,7 @@ import java.util.List;
  */
 @Service
 @Component
-public class OrderReturnReasonService {
+public class OrderReturnReasonService implements OrderReturnReasonClient {
 
     @Autowired
     private OrderReturnReasonMapper returnReasonMapper;
@@ -28,6 +29,7 @@ public class OrderReturnReasonService {
     /**
      * 添加订单原因
      */
+    @Override
     public int create(OrderReturnReason returnReason) {
         returnReason.setCreateTime(new Date());
         return returnReasonMapper.insert(returnReason);
@@ -36,6 +38,7 @@ public class OrderReturnReasonService {
     /**
      * 修改退货原因
      */
+    @Override
     public int update(Long id, OrderReturnReason returnReason) {
         returnReason.setId(id);
         return returnReasonMapper.updateByPrimaryKey(returnReason);
@@ -44,6 +47,7 @@ public class OrderReturnReasonService {
     /**
      * 批量删除退货原因
      */
+    @Override
     public int delete(List<Long> ids) {
         OrderReturnReasonExample example = new OrderReturnReasonExample();
         example.createCriteria().andIdIn(ids);
@@ -54,6 +58,7 @@ public class OrderReturnReasonService {
     /**
      * 分页获取退货原因
      */
+    @Override
     public List<OrderReturnReason> list(Integer pageSize, Integer pageNum) {
         PageHelper.startPage(pageNum, pageSize);
         OrderReturnReasonExample example = new OrderReturnReasonExample();
@@ -64,7 +69,8 @@ public class OrderReturnReasonService {
     /**
      * 批量修改退货原因状态
      */
-    public int updateStatus(List<Long> ids, Integer status) {
+    @Override
+    public int updateStatus(Integer status, List<Long> ids) {
         if (!status.equals(0) && !status.equals(1)) {
             return 0;
         }
@@ -78,6 +84,7 @@ public class OrderReturnReasonService {
     /**
      * 获取单个退货原因详情信息
      */
+    @Override
     public OrderReturnReason getItem(Long id) {
         return returnReasonMapper.selectByPrimaryKey(id);
     }
