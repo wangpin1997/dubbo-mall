@@ -1,10 +1,6 @@
 package cn.wpin.mall.client.order;
 
 import cn.wpin.mall.order.entity.OrderSetting;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author wangpin
@@ -17,8 +13,7 @@ public interface OrderSettingClient {
      * @param id
      * @return
      */
-    @RequestMapping(value = "orderSetting/{id}", method = RequestMethod.GET)
-    OrderSetting getItem(@PathVariable("id") Long id);
+    OrderSetting getItem(Long id);
 
     /**
      * 修改指定订单设置
@@ -27,6 +22,5 @@ public interface OrderSettingClient {
      * @param orderSetting
      * @return
      */
-    @RequestMapping(value = "orderSetting/update/{id}", method = RequestMethod.POST)
-    int update(@PathVariable("id") Long id, @RequestBody OrderSetting orderSetting);
+    int update(Long id, OrderSetting orderSetting);
 }
