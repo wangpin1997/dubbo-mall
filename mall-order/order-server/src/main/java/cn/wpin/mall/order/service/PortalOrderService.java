@@ -1,5 +1,6 @@
 package cn.wpin.mall.order.service;
 
+import cn.wpin.mall.client.order.PortalOrderClient;
 import cn.wpin.mall.client.product.SkuStockClient;
 import cn.wpin.mall.client.sale.CouponHistoryClient;
 import cn.wpin.mall.client.sale.MemberCouponClient;
@@ -37,7 +38,7 @@ import java.util.*;
  */
 @Service
 @Component
-public class PortalOrderService {
+public class PortalOrderService implements PortalOrderClient {
 
 
     @Autowired
@@ -74,6 +75,7 @@ public class PortalOrderService {
     private SkuStockClient skuStockClient;
 
 
+    @Override
     public ConfirmOrderResult generateConfirmOrder(Member currentMember) {
         ConfirmOrderResult result = new ConfirmOrderResult();
         //获取购物车信息
@@ -96,7 +98,9 @@ public class PortalOrderService {
         return result;
     }
 
-    public CommonResult generateOrder(OrderParam orderParam, Member currentMember, String orderSn) {
+    @Override
+    public CommonResult generateOrder(OrderParam orderParam, String orderSn) {
+        Member currentMember = orderParam.getMember();
         List<OrderItem> orderItemList = new ArrayList<>();
         //获取购物车及优惠信息
         List<CartPromotionItem> cartPromotionItemList = cartItemService.listPromotion(currentMember.getId());
@@ -239,6 +243,7 @@ public class PortalOrderService {
         return CommonResult.success(result, "下单成功");
     }
 
+    @Override
     public CommonResult paySuccess(Long orderId) {
         //修改订单支付状态
         Order order = new Order();
@@ -252,6 +257,7 @@ public class PortalOrderService {
         return CommonResult.success(count, "支付成功");
     }
 
+    @Override
     public CommonResult cancelTimeOutOrder() {
         OrderSetting orderSetting = orderSettingMapper.selectByPrimaryKey(1L);
         //查询超时、未支付的订单及订单详情
@@ -279,6 +285,7 @@ public class PortalOrderService {
         return CommonResult.success(null);
     }
 
+    @Override
     public void cancelOrder(Long orderId) {
         //查询为付款的取消订单
         OrderExample example = new OrderExample();
@@ -309,6 +316,7 @@ public class PortalOrderService {
         }
     }
 
+    @Override
     public long sendDelayMessageCancelOrder(Long orderId) {
         //获取订单超时时间
         OrderSetting orderSetting = orderSettingMapper.selectByPrimaryKey(1L);
