@@ -1,5 +1,6 @@
 package cn.wpin.mall.order.service;
 
+import cn.wpin.mall.client.order.PortalOrderReturnApplyClient;
 import cn.wpin.mall.order.dto.OrderReturnApplyParam;
 import cn.wpin.mall.order.entity.OrderReturnApply;
 import cn.wpin.mall.order.mapper.OrderReturnApplyMapper;
@@ -17,13 +18,14 @@ import java.util.Date;
  */
 @Service
 @Component
-public class PortalOrderReturnApplyService {
+public class PortalOrderReturnApplyService implements PortalOrderReturnApplyClient {
 
 
     @Autowired
     private OrderReturnApplyMapper returnApplyMapper;
 
 
+    @Override
     public int create(OrderReturnApplyParam returnApply) {
         OrderReturnApply realApply = new OrderReturnApply();
         BeanUtils.copyProperties(returnApply, realApply);
