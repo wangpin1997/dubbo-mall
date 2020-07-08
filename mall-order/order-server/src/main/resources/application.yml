@@ -4,6 +4,6 @@ dubbo:
   application:
     name: mall-order
   registry:
-    address: zookeeper://zk.wpin.config:80
+    address: zookeeper://zk.wpin.store:80
   monitor:
     protocol: registry
